@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generator"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPER_ADMIN
+  HR_MANAGER
+  EMPLOYEE
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Employee {
+  id           String         @id @default(cuid())
+  employeeId   String         @unique
+  name         String
+  email        String         @unique
+  password     String
+  phone        String
+  department   String
+  designation  String
+  salary       Decimal        @db.Decimal(10, 2)
+  joiningDate  DateTime
+  profileImage String?
+  role         Role           @default(EMPLOYEE)
+  status       EmployeeStatus @default(ACTIVE)
+  
+  // The relation attributes must stay entirely on one line
+  managerId    String?
+  manager      Employee?      @relation("EmployeeHierarchy", fields: [managerId], references: [id], onDelete: SetNull)
+  reportees    Employee[]     @relation("EmployeeHierarchy")
+
+  deletedAt    DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([department])
+  @@index([role])
+  @@index([status])
+  @@index([managerId])
+  @@index([deletedAt])
+}
