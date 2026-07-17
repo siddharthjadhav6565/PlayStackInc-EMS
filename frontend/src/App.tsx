@@ -1,10 +1,9 @@
 import {
-  ChangeEvent,
-  FormEvent,
   useEffect,
   useMemo,
   useState,
 } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import {
   Bar,
