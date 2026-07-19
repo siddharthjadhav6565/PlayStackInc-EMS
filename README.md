@@ -66,6 +66,12 @@ PlayStackInc-EMS/
 | `HRMANAGER` | Manage employee records, imports, status changes, and directory operations |
 | `EMPLOYEE` | Authenticated user access; employee-management actions are restricted in the UI |
 
+## SUPERADMIN Login Credentials
+
+| email : "admin@ems.com" |
+| password : "Admin@123" |
+
+
 ## API Base URL
 
 ```text
